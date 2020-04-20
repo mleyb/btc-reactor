@@ -6,3 +6,6 @@ run:
 
 fmt:
 	go fmt ./...
+
+build-image:
+	docker build -t btc-reactor:latest . -f Dockerfile
