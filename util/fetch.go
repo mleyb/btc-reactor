@@ -13,7 +13,7 @@ import (
 const url = "https://api.coindesk.com/v1/bpi/currentprice.json"
 
 // Prices fetches the current prices index
-func Prices() models.CurrentPrice {
+func Prices() models.Price {
 	client := http.Client{
 		Timeout: time.Second * 5,
 	}
@@ -37,7 +37,7 @@ func Prices() models.CurrentPrice {
 		log.Fatal(err)
 	}
 
-	price := models.CurrentPrice{}
+	price := models.Price{}
 
 	jsonErr := json.Unmarshal(body, &price)
 	if jsonErr != nil {
