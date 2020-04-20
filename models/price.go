@@ -6,7 +6,7 @@ import (
 
 // https://api.coindesk.com/v1/bpi/currentprice.json
 
-type CurrentPrice struct {
+type Price struct {
 	Time struct {
 		Updated    string    `json:"updated"`
 		UpdatedISO time.Time `json:"updatedISO"`
