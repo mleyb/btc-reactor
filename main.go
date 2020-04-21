@@ -2,33 +2,20 @@ package main
 
 import (
 	"context"
-	"fmt"
-	_ "github.com/aws/aws-lambda-go/lambda"
-	"github.com/mleyb/btc-reactor/models"
+	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/mleyb/btc-reactor/util"
+	"log"
 )
 
-type MyEvent struct {
-	Name string `json:"name"`
-}
+func handler(ctx context.Context, event events.CloudWatchEvent) {
+	prices := util.Prices()
 
-func HandleRequest(ctx context.Context, name MyEvent) (string, error) {
-	return fmt.Sprintf("Hello %s!", name.Name), nil
+	log.Println(prices.Bpi.GBP.Rate)
 }
 
 func main() {
-	//lambda.Start(HandleRequest)
-
-	var prices models.CurrentPrice
-
-
-	fmt.Println("test")
-
-	prices = util.Prices()
-
-	fmt.Sprintf("Prices %s", prices)
-
-	//log.Println("OK")
+	lambda.Start(handler)
 }
 
 // https://api.coindesk.com/v1/bpi/currentprice.json
