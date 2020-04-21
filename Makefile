@@ -1,5 +1,5 @@
 build:
-	go build -o btc-reactor main.go
+	go build -o bin/btc-reactor main.go
 
 run:
 	go run main.go
