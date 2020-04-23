@@ -4,9 +4,9 @@ import (
 	"context"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
-	//	"github.com/aws/aws-lambda-go/lambdacontext"
+	"github.com/mleyb/btc-reactor/aws"
+	"github.com/mleyb/btc-reactor/env"
 	"github.com/mleyb/btc-reactor/util"
-	"log"
 )
 
 func handler(ctx context.Context, event events.CloudWatchEvent) {
@@ -15,7 +15,9 @@ func handler(ctx context.Context, event events.CloudWatchEvent) {
 	//lc.ClientContext.
 	prices := util.Prices()
 
-	log.Println(prices.Bpi.GBP.Rate)
+	if prices.Bpi.GBP.RateFloat > env.Limit() {
+		aws.PublishSMS("BTC price is over limit", env.PhoneNumber())
+	}
 }
 
 func main() {

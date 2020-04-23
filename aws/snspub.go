@@ -7,8 +7,8 @@ import (
 	"log"
 )
 
-// SNSPublish todo
-func SNSPublish(message string, phoneNumber string) {
+// PublishSMS sends an SMS message
+func PublishSMS(message string, phoneNumber string) {
 	sess := session.Must(session.NewSession())
 
 	svc := sns.New(sess)
